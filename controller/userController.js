@@ -1,4 +1,4 @@
-import User from "../model/userModel";
+import User from "../model/userModel.js";
 
 // create user
 export const create = async(req, res) =>{
@@ -11,7 +11,7 @@ export const create = async(req, res) =>{
             return res.status(400).json({ message : 'User already exist!'});
         }
         const saveData = await newUser.save();
-        return res.status(200).json(saveData);
+        return res.status(200).json({message : 'User created successfully!'});
     } catch (error) {
        res.status(500).json({errMessage : error.message});
     }
