@@ -4,8 +4,11 @@ dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import route from './routes/userRoute.js';
 import cors from "cors";
+
+import route from './routes/userRoute.js';
+import signupRoute from './routes/signupRoute.js'
+import prodRoute from './routes/productRoute.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,4 +30,8 @@ mongoose
     })
     .catch((err)=> console.log(err , 'error occured, MONGOURL :', MONGOURL))
 
-app.use("/api", route)
+app.use("/api", route);
+app.use("/api/signup", signupRoute);
+app.use("/api/product", prodRoute);
+
+

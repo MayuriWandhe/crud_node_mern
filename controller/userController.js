@@ -47,15 +47,12 @@ export const getUserById = async(req, res) =>{
 // update user
 export const upadte = async (req, res) =>{
     try {
-        const id = req.params.id;
-        const userExist = await User.findById(id);
+        const _id = req.params.id;
+        const userExist = await User.findById(_id);
         if(!userExist){
             res.status(500).json({errMessage : 'User does not exist!'});
         }
-
-        const updatedData = await User.findOneAndUpdate(id, req.body, {
-            new : true
-        })
+        const updatedData = await User.findOneAndUpdate(_id, req.body, {new : true})
         res.status(200).json(updatedData);
     } catch (error) {
         res.status(500).json({ errMessage : error.message});
@@ -65,7 +62,7 @@ export const upadte = async (req, res) =>{
 // delete user
 export const deleteUser = async (req, res) =>{
     try {
-        const id =req.params.id;
+        const id = req.params.id;
         const userExist = await User.findById(id);
 
         if(!userExist){
