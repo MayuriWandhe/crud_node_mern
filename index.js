@@ -30,6 +30,7 @@ mongoose
     })
     .catch((err)=> console.log(err , 'error occured, MONGOURL :', MONGOURL))
 
+app.use("/uploads/product/", express.static('uploads/product'));
 app.use("/api", route);
 app.use("/api/signup", signupRoute);
 app.use("/api/product", prodRoute);
