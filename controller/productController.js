@@ -20,10 +20,7 @@ export const  create = async (req, res) =>{
             prodImg
         });
 
-        const newProduct = await prodData.save();
-
-        console.log('newProduct : ', newProduct);
-        
+        const newProduct = await prodData.save();        
         return res.status(201).json({newProduct, message : 'Product created successfully.'});
         } catch (error) {
         console.log('error : ', error, req.body);
@@ -52,7 +49,7 @@ export const getProductByd = async (req, res) =>{
         if(!prodData) {
             return res.status(400).json({error : 'Product not found.'});
         }       
-        return res.status(200).json({prodData});
+        return res.status(200).json(prodData);
     } catch (error) {
         res.status(500).json({error : 'Internal server error.'})
     }
@@ -66,7 +63,19 @@ export const update = async (req, res) => {
         if(!prodData){
             return res.status(400).json({error : "Product not found."});
         }        
-        const data = await Product.findByIdAndUpdate(_id, req.body, {new : true});
+
+        const { prodName , prodDescription, prodCost } = req.body;
+        const updatedDate = {
+            prodName , 
+            prodDescription, 
+            prodCost
+        }
+
+        if(req.file){
+            updatedDate.prodImg = req.file.filename;
+        }
+
+        const data = await Product.findByIdAndUpdate(_id, updatedDate, {new : true});
         res.status(200).json({data, message : 'Product updated successfully.'});
     } catch (error) {
         console.log('error update :', error);

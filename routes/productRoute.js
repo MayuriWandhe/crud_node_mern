@@ -7,7 +7,7 @@ const prodRoute = express.Router();
 prodRoute.post('/create', upload.single("prodImg"), create);
 prodRoute.get('/list', getAllProducts);
 prodRoute.get('/:id', getProductByd);
-prodRoute.put('/update/:id', update);
+prodRoute.put('/update/:id',upload.single("prodImg"), update);
 prodRoute.delete('/delete/:id', deleteProduct);
 
 export default prodRoute;
