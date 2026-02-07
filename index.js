@@ -11,8 +11,10 @@ import signupRoute from './routes/signupRoute.js'
 import prodRoute from './routes/productRoute.js';
 
 const app = express();
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json()); 
+app.use(express.urlencoded({ extended : true }));
 
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
