@@ -9,6 +9,7 @@ import cors from "cors";
 import route from './routes/userRoute.js';
 import signupRoute from './routes/signupRoute.js'
 import prodRoute from './routes/productRoute.js';
+import cartRoute from './routes/cartRoute.js';
 
 const app = express();
 // app.use(bodyParser.json());
@@ -36,5 +37,6 @@ app.use("/uploads/product/", express.static('uploads/product'));
 app.use("/api", route);
 app.use("/api/signup", signupRoute);
 app.use("/api/product", prodRoute);
+app.use("/api/cart", cartRoute)
 
 

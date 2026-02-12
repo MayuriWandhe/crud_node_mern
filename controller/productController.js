@@ -5,7 +5,6 @@ export const  create = async (req, res) =>{
         const {prodName , prodDescription, prodCost} = req.body;
         const  prodImg  = req.file.filename;
 
-        console.log("prodImg : ", prodImg, req.file.filename,  req.body, req.file);
         if(!prodImg) {
             return res.status(400).json({error : 'Product image is required!'});
         }
@@ -17,13 +16,13 @@ export const  create = async (req, res) =>{
             prodName,
             prodDescription,
             prodCost,
-            prodImg
+            prodImg,
+            vendor : req.user.id
         });
 
         const newProduct = await prodData.save();        
         return res.status(201).json({newProduct, message : 'Product created successfully.'});
         } catch (error) {
-        console.log('error : ', error, req.body);
         res.status(500).json({error : 'Inetrnal server error.'})
     }
 }
@@ -95,5 +94,21 @@ export const deleteProduct = async (req, res) => {
         return res.status(200).json({message : 'Product deleted successfully.'});
     } catch (error) {
         return res.status(500).json({error : 'Internal server error.'})        ;
+    }
+}
+
+
+// get product of single vendor
+
+export const getMyProducts = async (req, res) =>{
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+        const products = await Product.find({vendor : req.user.id});
+        res.status(200).json(products);
+    } catch (error) {
+        console.log('getMyProducts error : ', error, req.user.id )
+        return res.status(500).json({error : 'Internal server error.'})        
     }
 }

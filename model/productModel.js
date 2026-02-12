@@ -16,7 +16,12 @@ const productSchema = new mongoose.Schema({
     prodImg : {
         type : String,
         required : true
+    },
+    vendor : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Signups',
+        required : true
     }
-}) 
+}, {timestamps : true}); 
 
 export default mongoose.model("product", productSchema);

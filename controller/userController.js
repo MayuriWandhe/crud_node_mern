@@ -23,13 +23,9 @@ export const getAllUsers = async(req,res) => {
         const userData = await User.find();
         if(!userData || userData.length === 0){
             res.status(401).json({ message : 'User not found!'});
-        }
-        console.log('userData : ', userData);
-        
+        }        
         res.status(200).json(userData);
-    } catch (error) {
-        console.log('error : ', error);
-        
+    } catch (error) {        
         res.status(500).json({ message : error.message });
     }
 }
@@ -56,7 +52,7 @@ export const upadte = async (req, res) =>{
         if(!userExist){
             res.status(500).json({errMessage : 'User does not exist!'});
         }
-        const updatedData = await User.findByIdAndUpdate(_id, req.body, {new : true})
+        const updatedData = await User.findByIdAndUpdate(_id, req.body, {new : true}, {message : 'User updated successfully.'});
         res.status(200).json(updatedData);
     } catch (error) {
         res.status(500).json({ errMessage : error.message});

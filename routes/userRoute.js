@@ -7,8 +7,8 @@ const route =  express.Router();
 
 route.post('/user', auth, create);
 route.get('/users', auth, getAllUsers);
-route.get('/user/:id', getUserById);
-route.put('/user/update/:id', upadte);
-route.delete('/delete/user/:id', deleteUser)
+route.get('/user/:id', auth, getUserById);
+route.put('/user/update/:id', auth, upadte);
+route.delete('/delete/user/:id', auth, deleteUser)
 
 export default route;
